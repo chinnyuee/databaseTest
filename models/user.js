@@ -1,6 +1,6 @@
-const mongoose 	= require('mongoose');
-const Schema 	= mongoose.Schema;
-const bcrypt 	= require('bcrypt-nodejs');
+var mongoose 	= require('mongoose');
+var Schema 		= mongoose.Schema;
+var bcrypt 		= require('bcrypt-nodejs');
 
 var validateEmail = (email) => {
 	return(/\S+@\S+\.\S+/).test(email);
