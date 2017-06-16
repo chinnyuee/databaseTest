@@ -6,5 +6,5 @@ module.exports = {
 module.exports.loadConfigurations = function() {
 	process.env.MONGOOSE_CONNECT = 'mongodb://localhost/maventdatabase';
 	process.env.PORT = 3000;
-	process.env.HOST = '127.0.0.1';
+	process.env.HOST = '0.0.0.0';
 };
