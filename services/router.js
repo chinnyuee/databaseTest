@@ -10,10 +10,12 @@ var requireAuth	 = passport.authenticate('jwt'	, {session: false});
 var requireLogin = passport.authenticate('local', {session: false});
 
 // Router configuration
-router.route('/')				.get(displayRoot);
-router.route('/secure')			.get(requireAuth,secretFunction);
-router.route('/signUp')			.post(AuthenticationController.signUp);
-router.route('/secureSignIn')	.post(requireLogin, AuthenticationController.signIn);
+router.route('/')						.get(displayRoot);
+router.route('/secure')					.get(requireAuth,secretFunction);
+router.route('/signUp')					.post(AuthenticationController.signUp);
+router.route('/secureSignIn')			.post(requireLogin, AuthenticationController.signIn);
+router.route('/getOneTimePassword')		.get(requireAuth, DataController.getOneTimePassword);
+router.route('/verifyOneTimePassword')	.post(requireAuth, DataController.verifyOneTimePassword);
 
 // Debug Routes
 router.route('/getUserInfoDB')	.get(DataController.getUserInfo);

@@ -17,6 +17,17 @@ var userSchema = new Schema({
 		type: String,
 		required: 'Password is required.'
 	},
+	phonenumber: {
+		type: String,
+		required: 'Phone Number is required'
+	},
+	phoneOTP: {
+		type: Number
+	},
+	phoneverified: {
+		type: Boolean,
+		default: false
+	},
 	firstname: {
 		type: String,
 		required: 'First Name is required.'

@@ -23,6 +23,7 @@ exports.signUp = function(req, res, next) {
 	// Get User Data
 	var username 	= req.body.username;
 	var password 	= req.body.password;
+	var phonenumber = req.body.phonenumber;
 	var firstname 	= req.body.firstname;
 	var lastname 	= req.body.lastname;
 	var dateofbirth = req.body.dateofbirth;
@@ -50,13 +51,14 @@ exports.signUp = function(req, res, next) {
 
 		// Create User Object
 		var newUser = new User({
-			username 	:username,
-			password 	:password,
-			firstname	:firstname,
-			lastname 	:lastname,
-			dateofbirth :dateofbirth,
-			gender 		:gender,
-			email 		:email
+			username 		:username,
+			password 		:password,
+			phonenumber 	:phonenumber,
+			firstname		:firstname,
+			lastname 		:lastname,
+			dateofbirth 	:dateofbirth,
+			gender 			:gender,
+			email 			:email
 
 		});
 
@@ -66,11 +68,5 @@ exports.signUp = function(req, res, next) {
 			res.json({user_id: newUser._id, token: tokenForUser(newUser)});
 		});
 	});
-
-	// // Check whether Username already used
-	// User.findOne({username: username}, function(err, existingUser){
-	// 	if (err) return next(err);
-	// 	if (existingUser) return res.status(422).json({Error: "Username already exist, please use anothter username!"});
-	// });
 
 }

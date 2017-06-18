@@ -21,6 +21,8 @@ var HOST = process.env.HOST;
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+//app.use(twilioNotifications.notifyOnError);
+
 
 // Map Router
 var apiRouter = require('./services/router');
@@ -30,6 +32,10 @@ app.use('/' , apiRouter);
 app.listen(PORT, HOST ,function(){
 	console.log('Server Running on port ' + PORT);
 });
+
+// Twilio Manager
+// var TwilioController = require('./services/twilio_configurations');
+// TwilioController.twilioSendOTP('+6593264036', '123123');
 
 
 // Bind connection to on Error Event
