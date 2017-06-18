@@ -21,8 +21,14 @@ exports.signIn = function(req, res, next) {
 exports.signUp = function(req, res, next) {
 	console.log("Signing Up");
 	// Get User Data
-	var email = req.body.email;
-	var password = req.body.password;
+	var username 	= req.body.username;
+	var password 	= req.body.password;
+	var firstname 	= req.body.firstname;
+	var lastname 	= req.body.lastname;
+	var dateofbirth = req.body.dateofbirth;
+	var gender 		= req.body.gender;
+	var email 		= req.body.email;
+
 
 	// Validate Email and Password
 	if(!email || ! password) {
@@ -30,20 +36,41 @@ exports.signUp = function(req, res, next) {
 	}
 
 	// Check whether Email already used
-	User.findOne({email: email}, function(err, existingUser){
+	User.findOne({$or:[{email: email}, {username: username}]}, function(err, existingUser){
 		if (err) return next(err);
-		if (existingUser) return res.status(422).json({Error: "Email already exists, please use another email!"});
+		if (existingUser && existingUser.username === username) return res.status(422).json({
+			Error: "usernameExistError",
+			ErrorMsg: "Username already exists, please use another username!"
+		});
+		if (existingUser && existingUser.email === email) return res.status(422).json({
+			Error: "emailExistError",
+			ErrorMsg: "Email already exists, please use another email!"
+		});
+		
 
 		// Create User Object
 		var newUser = new User({
-			email: email,
-			password: password
+			username 	:username,
+			password 	:password,
+			firstname	:firstname,
+			lastname 	:lastname,
+			dateofbirth :dateofbirth,
+			gender 		:gender,
+			email 		:email
+
 		});
 
-		// Add User To Database
+	// Add User To Database
 		newUser.save(function(err){
 			if (err) return next(err);
 			res.json({user_id: newUser._id, token: tokenForUser(newUser)});
 		});
 	});
+
+	// // Check whether Username already used
+	// User.findOne({username: username}, function(err, existingUser){
+	// 	if (err) return next(err);
+	// 	if (existingUser) return res.status(422).json({Error: "Username already exist, please use anothter username!"});
+	// });
+
 }

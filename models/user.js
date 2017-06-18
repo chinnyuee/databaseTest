@@ -7,16 +7,40 @@ var validateEmail = (email) => {
 }
 
 var userSchema = new Schema({
+	username: {
+		type: String,
+		unique: true,
+		lowercase: true,
+		required: 'Username is required.'
+	},
+	password: {
+		type: String,
+		required: 'Password is required.'
+	},
+	firstname: {
+		type: String,
+		required: 'First Name is required.'
+	},
+	lastname: {
+		type: String,
+		required: 'Last Name is required.'
+	},
+	dateofbirth: {
+		type: String,
+		required: 'DOB is required.'
+	},
+	gender: {
+		type: String,
+		required: 'Gender is required.'
+	},
 	email: {
 		type: String,
 		unique: true,
 		lowercase: true,
-		required: 'Email address is required',
+		required: 'Email address is required.',
 		validate: [validateEmail, 'Please enter a valid email.']
-	},
-	password: {
-		type: String
 	}
+	
 }, { collection: 'userInfo' });
 
 userSchema.pre('save', function(next) {
